@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { MyAuthService } from '../services/my-auth.service';
+import { Router } from '@angular/router';
+import { SessionService, INologyDetails, INologyDetailsID } from '../services/session.service'
 
 @Component({
   selector: 'app-home',
@@ -6,8 +11,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  errorMessage="";
 
-  constructor() { }
+  nologyDetails:Observable<INologyDetails>
+
+  constructor(db: AngularFirestore, 
+              private myAuth:MyAuthService, 
+              private router: Router,
+              private session:SessionService
+            ) {
+              this.nologyDetails = this.session.nologyDetails;
+
+            }
+
+  logout(){
+    this.myAuth.logout()
+  }
+
+  upload(nologyDetails:INologyDetails){
+    this.session.upload(nologyDetails)
+  }
+
+  delete(nologyDetails:INologyDetailsID){
+    this.session.delete(nologyDetails)
+  }
+
+  update(nologyDetails:INologyDetailsID){
+    this.session.update(nologyDetails)
+  }
 
   ngOnInit() {
   }

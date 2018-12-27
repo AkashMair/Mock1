@@ -1,3 +1,25 @@
-<p>
-  register works!
-</p>
+<h1>Register</h1>
+<form #registerForm="ngForm" (ngSubmit)="register(registerForm.value)">
+    <input
+      type= "email"
+      email
+      ngModel
+      required
+      placeholder="Email Address"
+      name="email"
+      id="emaillAddress"
+    >
+    <input
+    type= "password"
+    password
+    ngModel
+    required
+    placeholder="Password"
+    name="password"
+    id="securePassword"
+
+  >
+  
+  <button type="submit">Register</button>
+  </form>
+  

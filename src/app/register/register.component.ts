@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MyAuthService} from '../services/my-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -6,8 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  errorMessage='';
 
-  constructor() { }
+  constructor(private router: Router, private myAuth:MyAuthService) { }
+
+  register(details: {email:string, password:string }){
+    console.log(details.email, details.password);
+    console.log('first test')
+    this.myAuth.register(details.email, details.password)
+      .then(()=>{this.router.navigate([''])
+      })
+      .catch((error:Error)=>{
+        this.errorMessage=error.message
+      })
+    }
 
   ngOnInit() {
   }
